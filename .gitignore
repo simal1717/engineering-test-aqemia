@@ -1,0 +1,5 @@
+logs/*
+*.pyc
+.ipynb_checkpoints/*
+*Icon?
+.DS_Store

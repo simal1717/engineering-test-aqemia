@@ -1,3 +1,4 @@
+from tkinter.messagebox import RETRY
 from flask import Flask, request, redirect, url_for, flash, jsonify
 import numpy as np 
 import pandas as pd
@@ -71,6 +72,11 @@ app = Flask(__name__)
 @app.route('/predict', methods=['POST'])
 
 def make_infer():
+    #model loading 
+    model_path = "pickles/model_v1.pkl"
+    model = pkl.load(open(model_path, 'rb'))
+
+    #Getting the inputs
     data = request.get_json()
     inputs = data["inputs"]
     X_predict = prepare_data(inputs)
@@ -91,9 +97,11 @@ def make_infer():
 
     return outputs
 
+@app.route('/', methods=['GET'])
+
+def print_hello():
+    return "Welcome to the coolest API ;) !!!"
 
 if __name__ == '__main__':
-    model_path = './pickles/model_v1.pkl'
-    model = pkl.load(open(model_path, 'rb'))
     app.run(debug=True, host='0.0.0.0')
 
